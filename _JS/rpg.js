@@ -41,7 +41,6 @@ function start() {
 		document.getElementById("player").setAttribute('src', '../_images/God.png');
 		hero.maxHitpoints += 1000000;
 		hero.attackPower += 1000000;
-		hero.maxCooldown = 1;
 	}
 	framerun = setInterval(frame, 100);//runs frame every 1/10 of a second
 	setInterval(checkKey, 10);//improved movement script
