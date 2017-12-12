@@ -1,4 +1,4 @@
-//Bryce Hackel and 
+//Bryce Hackel and
 //
 //Final Project - History RPG
 
@@ -12,8 +12,6 @@ var hero = { //object of the hero, gets modified by the class chosen
 	x:10,
 	y:360,
 	changeHP:changeHP,
-	cooldown:0,
-	maxCooldown:100,
 	movementSpeed: 1,
 	maxMovementSpeed:10,
 	minMovementSpeed:1,
@@ -34,17 +32,16 @@ function start() {
 		//alert("invalid name");
 		//return;
 	//}
-	if (hero.name === "God" || hero.name === "god" || hero.name === "gaben" || hero.name === "Gaben") { //secret dev mode/easter egg
-		document.getElementById("player").setAttribute('src', '../_images/God.png');
-		hero.maxHitpoints += 1000000;
-		hero.attackPower += 1000000;
-		hero.maxCooldown = 1;
-	}
 	hero.hitpoints = hero.maxHitpoints;
 	hero.cooldown = hero.maxCooldown;
 	game.run = true;
 	document.getElementById("choose").innerHTML = ''; //clears the staring screen
 	document.getElementById("content").innerHTML += '<div id="playerImage" style="position: absolute;left:'+(hero.x-25)+'px;top:+'+(hero.y-25)+'px;"><img id="player" src="../_images/player.png"></div>';
+	if (hero.name === "God" || hero.name === "god" || hero.name === "gaben" || hero.name === "Gaben") { //secret dev mode/easter egg
+		document.getElementById("player").setAttribute('src', '../_images/God.png');
+		hero.maxHitpoints += 1000000;
+		hero.attackPower += 1000000;
+	}
 	framerun = setInterval(frame, 100);//runs frame every 1/10 of a second
 	setInterval(checkKey, 10);//improved movement script
 }
@@ -126,4 +123,3 @@ function checkKey(){
     }
 	document.getElementById("playerImage").style = 'position: absolute;left:'+(hero.x-25)+'px;top:+'+(hero.y-25)+'px;';
 }
-
