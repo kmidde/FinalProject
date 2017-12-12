@@ -23,7 +23,7 @@ var game = { //game object
 
 console.log("screen size of "+window.innerWidth+"x"+window.innerHeight);
 
-var framerun;
+var frameRun;var keyRun;
 
 function start() {
 	"use strict";
@@ -42,8 +42,8 @@ function start() {
 		hero.maxHitpoints += 1000000;
 		hero.attackPower += 1000000;
 	}
-	framerun = setInterval(frame, 100);//runs frame every 1/10 of a second
-	setInterval(checkKey, 10);//improved movement script
+	frameRun = setInterval(frame, 100);//runs frame every 1/10 of a second
+	keyRun = setInterval(checkKey, 10);//improved movement script
 }
 
 function frame() {
@@ -51,12 +51,16 @@ function frame() {
 		if (hero.hitpoints <= 0) {
 			game.run = false;
 		}
+		if (hero.y <= 0 || hero.y >= 720 || hero.x <= 0 || hero.x >= 1280) { //checking if player has left the canvas, then kills them
+			game.run = false;
+		}
 	}
 	else { //displays death message when game ends
 		console.log("you died");
 		document.getElementById("choose").style.fontSize = '50px';
 		document.getElementById("choose").innerHTML = "you died reload to not be dead";
-		clearInterval(framerun);
+		clearInterval(frameRun);
+		clearInterval(keyRun)
 	}
 }
 
