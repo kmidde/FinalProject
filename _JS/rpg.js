@@ -1,4 +1,4 @@
-//Bryce Hackel and
+//Bryce Hackel and Karthik
 //
 //Final Project - History RPG
 
