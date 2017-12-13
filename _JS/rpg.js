@@ -2,19 +2,14 @@
 //
 //Final Project - History RPG
 
-var hero = { //object of the hero, gets modified by the class chosen
-	type:"hero",
+var player = { //player object
 	name:"",
-	class:"",
-	maxHitpoints:500,
-	hitpoints:500,
-	attackPower:10,
+	godMode:false,
 	x:10,
 	y:360,
-	changeHP:changeHP,
-	movementSpeed: 1,
-	maxMovementSpeed:10,
-	minMovementSpeed:1,
+	walkingSpeed:1,
+	movementSpeed:3,
+	runningSpeed:10,
 };
 
 var game = { //game object
@@ -27,58 +22,37 @@ var frameRun;var keyRun;
 
 function start() {
 	"use strict";
-	hero.name = document.getElementById("nameField").value;
-	//if (hero.name === "") { //doesnt allow blank names
+	player.name = document.getElementById("nameField").value;
+	//if (player.name === "") { //doesnt allow blank names
 		//alert("invalid name");
 		//return;
 	//}
-	hero.hitpoints = hero.maxHitpoints;
-	hero.cooldown = hero.maxCooldown;
 	game.run = true;
 	document.getElementById("choose").innerHTML = ''; //clears the staring screen
-	document.getElementById("content").innerHTML += '<div id="playerImage" style="position: absolute;left:'+(hero.x-25)+'px;top:+'+(hero.y-25)+'px;"><img id="player" src="../_images/player.png"></div>';
-	if (hero.name === "God" || hero.name === "god" || hero.name === "gaben" || hero.name === "Gaben") { //secret dev mode/easter egg
+	document.getElementById("content").innerHTML += '<div id="playerImage" style="position: absolute;left:'+(player.x-25)+'px;top:+'+(player.y-25)+'px;"><img id="player" src="../_images/player.png"></div>';
+	if (player.name === "God" || player.name === "god" || player.name === "gaben" || player.name === "Gaben") { //secret dev mode/easter egg
 		document.getElementById("player").setAttribute('src', '../_images/God.png');
-		hero.maxHitpoints += 1000000;
-		hero.attackPower += 1000000;
+		player.godMode = true;
 	}
-	frameRun = setInterval(frame, 100);//runs frame every 1/10 of a second
-	keyRun = setInterval(checkKey, 10);//improved movement script
+	frameRun = setInterval(frame, 10);//runs frame every 0.01 second
+	
 }
 
 function frame() {
 	if (game.run === true) {
-		if (hero.hitpoints <= 0) {
+		checkKey();
+		if (player.y <= 0 || player.y >= 720 || player.x <= 0 || player.x >= 1280) { //checking if player has left the canvas, then kills them
 			game.run = false;
 		}
-		if (hero.y <= 0 || hero.y >= 720 || hero.x <= 0 || hero.x >= 1280) { //checking if player has left the canvas, then kills them
-			game.run = false;
-		}
+		
 	}
 	else { //displays death message when game ends
 		console.log("you died");
 		document.getElementById("choose").style.fontSize = '50px';
 		document.getElementById("choose").innerHTML = "you died reload to not be dead";
 		clearInterval(frameRun);
-		clearInterval(keyRun)
 	}
 }
-
-function changeHP(change) { //displays the hearts
-	var i = 0;
-	this.hitpoints += change;
-	if (this.hitpoints < 0) {
-		this.hitpoints = 0;
-	}
-	document.getElementById('health').innerHTML = '';
-	for (i = 0; i < this.hitpoints; i++) { //displaying living hearts
-		document.getElementById(this.name+'health').innerHTML += '<img src="../_images/heart.png">';
-	}
-	for (i = 0; i < (this.maxHitpoints-this.hitpoints); i++) { //displaying dead hearts
-		document.getElementById(this.name+'health').innerHTML += '<img src="../_images/deadHeart.png">';
-	}
-}
-
 
 var Keys = {
     up: false,
@@ -95,7 +69,7 @@ window.onkeydown = function(e){
      if(kc === 38) {Keys.up = true;}
      if(kc === 39) {Keys.right = true;}
      if(kc === 40) {Keys.down = true;}
-	 if(kc === 16) {hero.movementSpeed = hero.maxMovementSpeed;}
+	 if(kc === 16) {player.movementSpeed = player.maxMovementSpeed;}
  };
 
 window.onkeyup = function(e){
@@ -106,24 +80,24 @@ window.onkeyup = function(e){
      if(kc === 38) {Keys.up = false;}
      if(kc === 39) {Keys.right = false;}
      if(kc === 40) {Keys.down = false;}
-	 if(kc === 16) {hero.movementSpeed = hero.minMovementSpeed;}
+	 if(kc === 16) {player.movementSpeed = player.minMovementSpeed;}
 };
 
 function checkKey(){
     if(Keys.up){
-        hero.y -= hero.movementSpeed;
+        player.y -= player.movementSpeed;
     }
 
     if(Keys.down){
-        hero.y += hero.movementSpeed;
+        player.y += player.movementSpeed;
     }
 
     if(Keys.left) {
-        hero.x -= hero.movementSpeed;
+        player.x -= player.movementSpeed;
     }
 
     if(Keys.right){
-        hero.x += hero.movementSpeed;
+        player.x += player.movementSpeed;
     }
-	document.getElementById("playerImage").style = 'position: absolute;left:'+(hero.x-25)+'px;top:+'+(hero.y-25)+'px;';
+	document.getElementById("playerImage").style = 'position: absolute;left:'+(player.x-25)+'px;top:+'+(player.y-25)+'px;';
 }
