@@ -38,7 +38,7 @@ function start() {
 		player.godMode = true;
 	}
 	
-	document.getElementById('content').innerHTML += '<button id="" onclick="china()">China</button><button id="" onclick="middle()">Middle Ages</button><button id="" onclick="americas()">Americas</button';
+	document.getElementById('choose').innerHTML += '<button id="" onclick="china()">China</button><button id="" onclick="middle()">Middle Ages</button><button id="" onclick="americas()">Americas</button';
 	frameRun = setInterval(frame, 10);//runs frame every 0.01 second
 }
 
@@ -54,10 +54,10 @@ function frame() {
 		} else { document.getElementById("playerImage").style.display = 'inherit';}
 		
 	}
-	else { //displays death message when game ends
-		console.log("you died");
+	else { //displays message when game ends
+		console.log("you lose");
 		document.getElementById("choose").style.fontSize = '50px';
-		document.getElementById("choose").innerHTML = "you died reload to not be dead";
+		document.getElementById("choose").innerHTML = "you lose reload to not be lose";
 		clearInterval(frameRun);
 	}
 }
@@ -139,5 +139,6 @@ function moveAnimate(x1,y1,x2,y2,elem,xoff,yoff,intID) {
 //games
 
 function china() {
-	document.getElementById("content").innerHTML = '';
+	document.getElementById("choose").innerHTML = '';
+	
 }
