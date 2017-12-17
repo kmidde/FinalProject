@@ -2,7 +2,8 @@
 	border: 1px red solid;
 }
 body {
-	background-image: url(../_images/lava.gif);
+	background-repeat: no-repeat;
+	background-size: 100%;
 }
 
 button {
@@ -55,7 +56,7 @@ button {
     cursor: pointer;
 	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 	transition-duration: 0.7s;
-	width: 60px;
+	width: 200px;
 	z-index: 99999;
 }
 button:hover{
@@ -89,9 +90,10 @@ button:active {
 	left: 0;
 	right: 0;
 	margin: auto;
+	border: solid black 1px;
 }
 
-.container {
+#container {
 	width: auto;
 	height: auto;
 }
