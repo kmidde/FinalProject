@@ -37,9 +37,7 @@ function start() {
 		//document.getElementById("player").setAttribute('src', '../_images/God.png');
 		player.godMode = true;
 	}
-	
 	document.getElementById('choose').innerHTML += '<button style="position:absolute;left:120px;top:50px" onclick="china()">China</button><button style="position:absolute;left:540px;top:50px" onclick="middle()">Middle Ages</button><button style="position:absolute;left:960px;top:50px" onclick="americas()">Americas</button';
-	keyRun = setInterval(checkKey, 10);//runs frame every 0.01 second
 }
 
 /*function frame() {
@@ -94,27 +92,6 @@ window.onkeyup = function(e){
 	 if(kc === 16) {Keys.shift = false;}
 	 if(kc === 18) {Keys.alt = false;}
 };
-
-function checkKey(){
-	if (player.allowMove === true) {
-		if(Keys.up){
-			player.y -= player.speed;
-		}
-
-		if(Keys.down){
-			player.y += player.speed;
-		}
-
-		if(Keys.left) {
-			player.x -= player.speed;
-		}
-
-		if(Keys.right){
-			player.x += player.speed;
-		}
-	}
-	
-}
 
 /*function checkInteract(x1,y1,x2,y2,w1,h1,w2,h2){
 	if (x1 < x2+w2 && x1+w1 > x2-w2 && y1 < y2+h2 && y1+h1 > y2-h2) {
@@ -226,6 +203,7 @@ function changeColor(c){
 	}
 }
  function erase() {
+	"use strict";
 	var canvas = document.getElementById("canvas");
 	var ctx = canvas.getContext("2d");
     var erasePrompt = confirm("Want to clear");
@@ -237,5 +215,9 @@ function changeColor(c){
 
 //americas
 function americas() {
-	document.body.style.backgroundImage = "url('../_images/watertemp.gif')";
+	"use strict";
+	document.body.style.backgroundImage = "url('../_images/ice.jpg')";
+	document.getElementById("content").style.backgroundImage = "url('../_images/watertemp.gif')";
+	document.getElementById("content").innerHTML = '<img src="../_images/ship1.png" onclick="ship(1)" style="style="position:absolute;top:100px;left:100px;" /><img src="../_images/ship2.png" onclick="ship(2)" style="position:absolute;left 950px;top:150px" /><img src="../_images/ship3.png" onclick="ship(3)" style="position:absolute;left 150px;top:400px" /><img src="../_images/ship4.png" onclick="ship(4)" style="position:absolute;left 950px;top:400px" />';
+	
 }

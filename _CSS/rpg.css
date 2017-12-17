@@ -91,6 +91,8 @@ button:active {
 	right: 0;
 	margin: auto;
 	border: solid black 1px;
+	background-repeat: no-repeat;
+	background-size: 100%;
 }
 
 #container {
