@@ -95,7 +95,7 @@ window.onkeyup = function(e){
 	 if(kc === 18) {Keys.alt = false;}
 };
 
-function checkKey(value){
+function checkKey(){
 	if (player.allowMove === true) {
 		if(Keys.up){
 			player.y -= player.speed;
@@ -170,13 +170,15 @@ var mousedown;
 function middle() {
 	"use strict";
 	document.body.style.backgroundImage = "url('../_images/chapel.jpg')";
-	document.getElementById("content").innerHTML = '<div id="tools" style="position:absolute;left:20px;"><div style="width:20px;height:20px;background-color:green;" onclick="changeColor(1)"></div><div style="width:20px;height:20px;background-color:red;" onclick="changeColor(2)"></div><div style="width:20px;height:20px;background-color:blue;" onclick="changeColor(3)"></div><div style="width:20px;height:20px;background-color:black;" onclick="changeColor(4)"></div><div style="width:19px;height:19px;background-color:white;border:1px solid black;" onclick="changeColor(5)"></div><br /><button onclick="erase()">clear</button></div><canvas onmousemove="getCoords(event)" onmousedown="mousedown=true;flag=true;" onmouseup="mousedown=false" onmouseout="mousedown=false;xold = x; yold = y;" id="canvas" width="1000px" height="720px" style="position:absolute;left:280px;"></canvas>';
+	document.getElementById("content").innerHTML = '<img src="../_images/player.png" style="position:absolute;" id="brush" /><div id="tools" style="position:absolute;left:20px;"><div style="width:20px;height:20px;background-color:green;" onclick="changeColor(1)"></div><div style="width:20px;height:20px;background-color:red;" onclick="changeColor(2)"></div><div style="width:20px;height:20px;background-color:blue;" onclick="changeColor(3)"></div><div style="width:20px;height:20px;background-color:black;" onclick="changeColor(4)"></div><div style="width:19px;height:19px;background-color:white;border:1px solid black;" onclick="changeColor(5)"></div><br /><button onclick="erase()">clear</button></div><img src="../_images/leonardo.png" style="position:absolute;top:320px;left:50px" /><canvas onmousemove="getCoords(event)" onmousedown="mousedown=true;flag=true;" onmouseup="mousedown=false" onmouseout="mousedown=false;xold = x; yold = y;" id="canvas" width="1000px" height="720px" style="position:absolute;left:280px;"></canvas>';
 	mousedown = false;
 }
 
 var x,y,xold,yold,color='black',flag,lineWidth;
 function getCoords(event) {
 	"use strict";
+	document.getElementById("brush").style = 'left:'+(event.offsetX+280)+'px;top:'+event.offsetY+'px;position:absolute;';
+	console.log(event.offsetX);
 	if (flag === true) {
 		xold = event.offsetX;
 		yold = event.offsetY;
@@ -200,6 +202,7 @@ function getCoords(event) {
 	}
 }
 function changeColor(c){
+	"use strict";
 	switch (c) {
 		case 1:
 			color = 'green';
