@@ -99,3 +99,12 @@ button:active {
 	width: auto;
 	height: auto;
 }
+
+#shipBar {
+	width: 180px;
+}
+
+#shipImage {
+	width: 180px;
+}
+

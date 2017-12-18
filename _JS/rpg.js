@@ -67,6 +67,7 @@ var Keys = {
     right: false,
 	shift: false,
 	alt: false,
+	space: false,
 };
 
 window.onkeydown = function(e){
@@ -79,6 +80,7 @@ window.onkeydown = function(e){
      if(kc === 40) {Keys.down = true;}
 	 if(kc === 16) {Keys.shift = true;}
 	 if(kc === 18) {Keys.alt = true;}
+	 if(kc === 32) {Keys.space = true;}
  };
 
 window.onkeyup = function(e){
@@ -91,6 +93,7 @@ window.onkeyup = function(e){
      if(kc === 40) {Keys.down = false;}
 	 if(kc === 16) {Keys.shift = false;}
 	 if(kc === 18) {Keys.alt = false;}
+	 if(kc === 32) {Keys.space = false;}
 };
 
 /*function checkInteract(x1,y1,x2,y2,w1,h1,w2,h2){
@@ -111,8 +114,8 @@ function checkInteract(elemID1,elemID2){
 	var w2 = parseInt(elem2.clientWidth);
 	var h1 = parseInt(elem1.clientHeight);
 	var h2 = parseInt(elem2.clientHeight);
-	//console.log(x1+','+x2+','+y1+','+y2+','+w1+','+w2+','+h1+','+h2)
-	if (x1 < x2+w2 && x1+w1 > x2-w2 && y1 < y2+h2 && y1+h1 > y2-h2) {
+	//console.log(x1+','+x2+','+y1+','+y2+','+w1+','+w2+','+h1+','+h2);
+	if (x1 < x2+w2 && x1+w1 > x2 && y1 < y2+h2 && y1+h1 > y2) {
 		return true;
 	}
 }
@@ -121,10 +124,11 @@ function checkInteract(elemID1,elemID2){
 var pos = 0;
 function moveAnimate(x2,y2,elem,intID,ticks) {
 	"use strict";
-	var x1 = parseInt(elem.style.left);
-	var y1 = parseInt(elem.style.top);
-	var xoff = parseInt(elem.clientWidth)/2;
-	var yoff = parseInt(elem.clientHeight)/2;
+	var eleme = document.getElementById(elem);
+	var x1 = parseInt(eleme.style.left);
+	var y1 = parseInt(eleme.style.top);
+	var xoff = parseInt(eleme.clientWidth)/2;
+	var yoff = parseInt(eleme.clientHeight)/2;
 	if (pos === ticks) {
 		document.getElementById(elem).style = 'position: absolute;display: none;';
 		pos = 0;
@@ -217,7 +221,153 @@ function changeColor(c){
 function americas() {
 	"use strict";
 	document.body.style.backgroundImage = "url('../_images/ice.jpg')";
-	document.getElementById("content").style.backgroundImage = "url('../_images/watertemp.gif')";
-	document.getElementById("content").innerHTML = '<img src="../_images/ship1.png" onclick="ship(1)" style="style="position:absolute;top:100px;left:100px;" /><img src="../_images/ship2.png" onclick="ship(2)" style="position:absolute;left 950px;top:150px" /><img src="../_images/ship3.png" onclick="ship(3)" style="position:absolute;left 150px;top:400px" /><img src="../_images/ship4.png" onclick="ship(4)" style="position:absolute;left 950px;top:400px" />';
-	
+	//document.getElementById("content").style.backgroundImage = "url('../_images/watertemp.gif')";
+	document.getElementById("content").innerHTML = '<p style="position:absolute;top:50px;left:490px;width:300px;height:100px;font-size:20px;font-family: Arial;">Pick a ship to transport your workers to the Americas</p><div style="position:absolute;top:150px;left: 150px;"><img src="../_images/ship1.png" onclick="ship(1)" /></div><div style="position:absolute;left: 950px;top:150px"><img src="../_images/ship2.png" onclick="ship(2)" /></div><div style="position:absolute;left: 150px;top:400px"><img src="../_images/ship3.png" onclick="ship(3)" /></div><div style="position:absolute;left: 950px;top:400px"><img src="../_images/ship4.png" onclick="ship(4)" /></div>';
 }
+
+var shipStats = {
+	type: 0,
+	speed: 0,
+	hp: 0,
+	hpmax: 0,
+	attack: false,
+	attackPower: 0,
+	attackDelay: 0,
+	x: 100,
+	y: 10,
+	width: 180,
+	height: 170,
+	run: true,
+	deathMessage: '',
+	timer: 0,
+};
+var shipInt;
+function ship(num) {
+	"use strict";
+	shipStats.type = num;
+	switch (num) {
+		case 1:
+			shipStats.speed = 2;
+			shipStats.hp = 400;
+			shipStats.attack = true;
+			shipStats.attackPower = 20;
+			shipStats.attackDelay = 300;
+			break;
+		case 2:
+			shipStats.speed = 4;
+			shipStats.hp = 100;
+			shipStats.attack = false;
+			break;
+		case 3:
+			shipStats.speed = 8;
+			shipStats.hp = 50;
+			shipStats.attack = false;
+			break;
+		case 4:
+			shipStats.speed = 1;
+			shipStats.hp = 800;
+			shipStats.attack = true;
+			shipStats.attackPower = 5;
+			shipStats.attackDelay = 300;
+			break;
+	}
+	shipStats.hpmax = shipStats.hp;
+	document.getElementById("content").innerHTML = '<div id="shipImage" style="position:absolute;left:'+(shipStats.x+shipStats.width/2)+'px;top:'+(shipStats.y+shipStats.height/2)+'px;" ><img src="../_images/ship'+num+'.png" /><progress id="shipBar" value="100" max="100"></progress></div>';
+	document.getElementById('content').innerHTML += '<img style="display:none;left:0;top:0;" src="../_images/player.png" id="cannon" />';
+	document.getElementById("content").innerHTML += '<img src="../_images/eship1.png" id="shipEnemy1" style="position:absolute;left:'+(shipEnemy1.x-190-shipEnemy1.timer)+'px;top: '+(shipEnemy1.y)+'px;display:none;"/><img src="../_images/eship2.png" id="shipEnemy2" style="position:absolute;left:'+(shipEnemy2.x-190-shipEnemy1.timer)+'px;top: '+(shipEnemy2.y)+'px;display:none;"/>';
+	document.getElementById("content").style.backgroundColor = '#0064c8';
+	shipInt = setInterval(americasFrame, 10);
+}
+
+function americasFrame() {
+	"use strict";
+	shipStats.timer += 1;
+	if (shipStats.run === true) {
+		if (Keys.up === true) { shipStats.y -= shipStats.speed; }
+		if (Keys.down === true) { shipStats.y += shipStats.speed; }
+		document.getElementById("shipImage").style = 'position:absolute;left:'+(shipStats.x-shipStats.width/2)+'px;top:'+(shipStats.y-shipStats.height/2)+'px;';
+		document.getElementById("shipBar").value = ((shipStats.hp/shipStats.hpmax)*100);
+		if (shipStats.y <= 0 || shipStats.y >= 720) {
+			shipStats.run = false;
+			shipStats.deathMessage = 'you crashed into the ice!';
+		}
+		if (shipStats.hp <= 0) {
+			shipStats.run = false;
+			shipStats.deathMessage = 'your ship was destroyed!';
+		}
+		console.log(shipStats.timer);
+		if (shipStats.timer >= 1000) {
+			shipStats.run = false;
+			shipStats.deathMessage = 'You won!';
+		}
+		/*if (shipStats.timer%shipStats.attackDelay === 0 && shipStats.attack && Keys.space && (shipEnemy1.flag === true || shipEnemy2.flag === true)) {
+			document.getElementById("cannon").style = 'display:none;left:'+(shipStats.x)+'px;top:'+(shipStats.y)+'px;';
+			cannonAnimate = setInterval(function(){ 
+				console.log(document.getElementById("cannon").style.left);
+				console.log(document.getElementById("cannon").style.top);
+				moveAnimate(600,200,'cannon',cannonAnimate,200);
+				checkInteract('cannon','shipEnemy1');
+				checkInteract('cannon','shipEnemy2');
+			}, 20);
+		}*/
+		if (shipStats.timer%100 === 0 && shipEnemy1.flag === false) {
+			shipEnemy1.timer = 0;
+			shipEnemy1.x = 1280;
+			shipEnemy1.y = Math.floor(Math.random() * 550) + 1;
+			shipEnemy1.flag = true;
+			document.getElementById("shipEnemy1").style.display = "inherit";
+			var shipEnemy1Animate = setInterval(function(){ 
+				shipEnemy1.timer += 5;
+				document.getElementById("shipEnemy1").style = 'position:absolute;left:'+(shipEnemy1.x-190-shipEnemy1.timer)+'px;top: '+(shipEnemy1.y)+'px;display:inherit;';
+				if (checkInteract('shipImage','shipEnemy1')) { shipStats.hp -= shipEnemy1.atkPower;console.log("ship1 is doing damage"); }
+				if (shipEnemy1.timer >= 1280 || shipEnemy1.hp <= 0) {
+					clearInterval(shipEnemy1Animate);
+					document.getElementById("shipEnemy1").style.display = 'none';
+					shipEnemy1.flag = false;
+				}
+			}, 20);
+		}
+		if (shipStats.timer%100 === 0 && shipEnemy2.flag === false) {
+			shipEnemy2.timer = 0;
+			shipEnemy2.x = 1280;
+			shipEnemy2.y = Math.floor(Math.random() * 550) + 1;
+			shipEnemy2.flag = true;
+			document.getElementById("shipEnemy2").style.display = "inherit";
+			var shipEnemy2Animate = setInterval(function(){ 
+				shipEnemy2.timer += 10;
+				document.getElementById("shipEnemy2").style = 'position:absolute;left:'+(shipEnemy2.x-190-shipEnemy2.timer)+'px;top: '+(shipEnemy2.y)+'px;display:inherit;';
+				if (checkInteract('shipImage','shipEnemy2')) { shipStats.hp -= shipEnemy2.atkPower;console.log("ship2 is doing damage"); }
+				if (shipEnemy2.timer >= 1280 || shipEnemy2.hp <= 0) {
+					clearInterval(shipEnemy2Animate);
+					document.getElementById("shipEnemy2").style.display = 'none';
+					shipEnemy2.flag = false;
+				}
+			}, 20);
+		}
+	}
+	else {
+		clearInterval(shipInt);
+		document.getElementById('content').innerHTML += '<p style="position:absolute;top:50px;left:490px;width:300px;height:100px;font-size:20px;font-family: Arial;z-index:9999;">'+shipStats.deathMessage+'</p>';
+	}
+}
+
+var shipEnemy1 = {
+	x:1280,
+	y:200,
+	flag:false,
+	timer:0,
+	atkPower:3,
+};
+
+var shipEnemy2 = {
+	x:1280,
+	y:500,
+	flag:false,
+	timer:0,
+	atkPower:1,
+};
+
+
+
+
+
