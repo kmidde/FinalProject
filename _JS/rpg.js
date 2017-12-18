@@ -156,7 +156,7 @@ function china() {
 	chinaInt = setInterval(chinasFrame, 10);
 }
 
-var mongol = {
+var mongol = { //im lazy okay
 	xoff:50,
 	yoff:47.5,
 	x1:1100,
@@ -192,8 +192,8 @@ var mongol = {
 };
 
 var tower = {
-	hp: 1000,
-	hpmax:1000,
+	hp: 2000,
+	hpmax:2000,
 	count:0,
 	run:true,
 	end:'',
@@ -237,8 +237,8 @@ function chinasFrame() {
 		if (mongol.x4 <= 320) { mongol.x4 = 320; tower.hp -= 1;} else if (mongol.dis4) { mongol.x4 -= 1;}
 		if (mongol.x5 <= 320) { mongol.x5 = 320; tower.hp -= 1;} else if (mongol.dis5) { mongol.x5 -= 2;}
 		
-		if (tower.hp <= 0) { tower.run = false; tower.end='you were slaughtered by mongols';}
-		if (tower.count >= 2000) { tower.run = false; tower.end='you defended against the mongols long enough for reinforcements to arrive';}
+		if (tower.hp <= 0) { tower.run = false; tower.end='you were slaughtered by mongols<br />reload to go back to the main menu';}
+		if (tower.count >= 2000) { tower.run = false; tower.end='you defended against the mongols long enough for reinforcements to arrive<br />reload to go back to the main menu';}
 	}
 	else {
 		clearInterval(chinaInt);
@@ -282,7 +282,7 @@ var mousedown;
 function middle() {
 	"use strict";
 	document.body.style.backgroundImage = "url('../_images/chapel.jpg')";
-	document.getElementById("content").innerHTML = '<p style="position:absolute;top:500px;left:25px;width:225px;height:100px;font-size:20px;font-family: Arial;">Renaissance Painter Simulator - Be Your Own Artist With Leonardo Da Vinci!</p><img src="../_images/brush.png" style="position:absolute;" id="brush" /><div id="tools" style="position:absolute;left:20px;"><div style="width:20px;height:20px;background-color:green;" onclick="changeColor(1)"></div><div style="width:20px;height:20px;background-color:red;" onclick="changeColor(2)"></div><div style="width:20px;height:20px;background-color:blue;" onclick="changeColor(3)"></div><div style="width:20px;height:20px;background-color:black;" onclick="changeColor(4)"></div><img src="../_images/eraser.png" style="float:left;" onclick="changeColor(5)" /><br /><br /><br /><button onclick="erase()">Clear Canvas</button></div><img src="../_images/leonardo.png" style="position:absolute;top:320px;left:50px" /><canvas onmousemove="getCoords(event)" onmousedown="mousedown=true;flag=true;" onmouseup="mousedown=false" onmouseout="mousedown=false;xold = x; yold = y;" id="canvas" width="1000px" height="720px" style="position:absolute;left:280px;"></canvas>';
+	document.getElementById("content").innerHTML = '<p style="position:absolute;top:500px;left:25px;width:225px;height:100px;font-size:20px;font-family: Arial;">Renaissance Painter Simulator - Be Your Own Artist With Leonardo Da Vinci!<br />reload to go back to the main menu</p><img src="../_images/brush.png" style="position:absolute;" id="brush" /><div id="tools" style="position:absolute;left:20px;"><div style="width:20px;height:20px;background-color:green;" onclick="changeColor(1)"></div><div style="width:20px;height:20px;background-color:red;" onclick="changeColor(2)"></div><div style="width:20px;height:20px;background-color:blue;" onclick="changeColor(3)"></div><div style="width:20px;height:20px;background-color:black;" onclick="changeColor(4)"></div><img src="../_images/eraser.png" style="float:left;" onclick="changeColor(5)" /><br /><br /><br /><button onclick="erase()">Clear Canvas</button></div><img src="../_images/leonardo.png" style="position:absolute;top:320px;left:50px" /><canvas onmousemove="getCoords(event)" onmousedown="mousedown=true;flag=true;" onmouseup="mousedown=false" onmouseout="mousedown=false;xold = x; yold = y;" id="canvas" width="1000px" height="720px" style="position:absolute;left:280px;"></canvas>';
 	mousedown = false;
 }
 
@@ -420,16 +420,16 @@ function americasFrame() {
 		document.getElementById("shipBar").value = ((shipStats.hp/shipStats.hpmax)*100);
 		if (shipStats.y <= 0 || shipStats.y >= 720) {
 			shipStats.run = false;
-			shipStats.deathMessage = 'you crashed into the ice!';
+			shipStats.deathMessage = 'you crashed into the ice!<br />reload to go back to the main menu';
 		}
 		if (shipStats.hp <= 0) {
 			shipStats.run = false;
-			shipStats.deathMessage = 'your ship was destroyed!';
+			shipStats.deathMessage = 'your ship was destroyed!<br />reload to go back to the main menu';
 		}
 		console.log(shipStats.timer);
 		if (shipStats.timer >= 1000) {
 			shipStats.run = false;
-			shipStats.deathMessage = 'You successfully arrived in the americas';
+			shipStats.deathMessage = 'You successfully arrived in the americas<br />reload to go back to the main menu';
 		}
 		/*if (shipStats.timer%shipStats.attackDelay === 0 && shipStats.attack && Keys.space && (shipEnemy1.flag === true || shipEnemy2.flag === true)) {
 			document.getElementById("cannon").style = 'display:none;left:'+(shipStats.x)+'px;top:'+(shipStats.y)+'px;';
