@@ -143,11 +143,140 @@ function moveAnimate(x2,y2,elem,intID,ticks) {
 //games
 
 //chinas
+var chinaInt;
 function china() {
 	"use strict";
 	document.body.style.backgroundImage = "url('../_images/greatwall.jpg')";
-	document.getElementById("content").innerHTML = '<div id="towerImage" style="position:absolute;top:300px;left:50px"><img id="tower" src="../_images/tower.png" /><progress id="towerBar" value="100" max="100"></progress></div>';
+	document.getElementById("content").innerHTML = '<div id="towerImage" style="position:absolute;top:150px;left:50px"><img id="tower" src="../_images/tower.png" /><progress id="towerBar" value="100" max="100"></progress></div>';
+	document.getElementById("content").innerHTML += '<img id="mongol1" onclick="mongolClick(1)" style="position:absolute;left:0;top:0;display:none;" src="../_images/warrior.png" />';
+	document.getElementById("content").innerHTML += '<img id="mongol2" onclick="mongolClick(2)" style="position:absolute;left:0;top:0;display:none;" src="../_images/warrior.png" />';
+	document.getElementById("content").innerHTML += '<img id="mongol3" onclick="mongolClick(3)" style="position:absolute;left:0;top:0;display:none;" src="../_images/warrior.png" />';
+	document.getElementById("content").innerHTML += '<img id="mongol4" onclick="mongolClick(4)" style="position:absolute;left:0;top:0;display:none;" src="../_images/warrior.png" />';
+	document.getElementById("content").innerHTML += '<img id="mongol5" onclick="mongolClick(5)" style="position:absolute;left:0;top:0;display:none;" src="../_images/warrior.png" />';
+	chinaInt = setInterval(chinasFrame, 10);
 }
+
+var mongol = {
+	xoff:50,
+	yoff:47.5,
+	x1:1100,
+	y1:480,
+	dis1:false,
+	delay1:100,
+	temp1:0,
+	hp1:3,
+	x2:1100,
+	y2:360,
+	dis2:false,
+	delay2:50,
+	temp2:0,
+	hp2:3,
+	x3:1100,
+	y3:240,
+	dis3:false,
+	delay3:200,
+	temp3:0,
+	hp3:3,
+	x4:1100,
+	y4:120,
+	dis4:false,
+	delay4:10,
+	temp4:0,
+	hp4:3,
+	x5:1100,
+	y5:640,
+	dis5:false,
+	delay5:100,
+	temp5:0,
+	hp5:3,
+};
+
+var tower = {
+	hp: 1000,
+	hpmax:1000,
+	count:0,
+	run:true,
+	end:'',
+};
+
+function chinasFrame() {
+	"use strict";
+	if (tower.run === true) {
+		tower.count += 1;
+		console.log(tower.count);
+		document.getElementById("towerBar").value = ((tower.hp/tower.hpmax)*100);
+		document.getElementById("mongol1").style = 'position:absolute;left:'+(mongol.x1-mongol.xoff)+'px;top:'+(mongol.y1-mongol.yoff)+'px;';
+		document.getElementById("mongol2").style = 'position:absolute;left:'+(mongol.x2-mongol.xoff)+'px;top:'+(mongol.y2-mongol.yoff)+'px;';
+		document.getElementById("mongol3").style = 'position:absolute;left:'+(mongol.x3-mongol.xoff)+'px;top:'+(mongol.y3-mongol.yoff)+'px;';
+		document.getElementById("mongol4").style = 'position:absolute;left:'+(mongol.x4-mongol.xoff)+'px;top:'+(mongol.y4-mongol.yoff)+'px;';
+		document.getElementById("mongol5").style = 'position:absolute;left:'+(mongol.x5-mongol.xoff)+'px;top:'+(mongol.y5-mongol.yoff)+'px;';
+		if (mongol.dis1 === false) { 
+			document.getElementById("mongol1").style.display = 'none'; 
+			if (tower.count >= mongol.temp1+mongol.delay1) { mongol.dis1 = true;}
+		} else {document.getElementById("mongol1").style.display = 'inherit';}
+		if (mongol.dis2 === false) { 
+			document.getElementById("mongol2").style.display = 'none'; 
+			if (tower.count >= mongol.temp2+mongol.delay2) { mongol.dis2 = true;}
+		} else {document.getElementById("mongol2").style.display = 'inherit';}
+		if (mongol.dis3 === false) { 
+			document.getElementById("mongol3").style.display = 'none'; 
+			if (tower.count >= mongol.temp3+mongol.delay3) { mongol.dis3 = true;}
+		} else {document.getElementById("mongol3").style.display = 'inherit';}
+		if (mongol.dis4 === false) { 
+			document.getElementById("mongol4").style.display = 'none'; 
+			if (tower.count >= mongol.temp4+mongol.delay4) { mongol.dis4 = true;}
+		} else {document.getElementById("mongol4").style.display = 'inherit';}
+		if (mongol.dis5 === false) { 
+			document.getElementById("mongol5").style.display = 'none'; 
+			if (tower.count >= mongol.temp5+mongol.delay5) { mongol.dis5 = true;}
+		} else {document.getElementById("mongol5").style.display = 'inherit';}
+		
+		if (mongol.x1 <= 320) { mongol.x1 = 320; tower.hp -= 1;} else if (mongol.dis1) { mongol.x1 -= 3;}
+		if (mongol.x2 <= 320) { mongol.x2 = 320; tower.hp -= 1;} else if (mongol.dis2) { mongol.x2 -= 2;}
+		if (mongol.x3 <= 320) { mongol.x3 = 320; tower.hp -= 1;} else if (mongol.dis3) { mongol.x3 -= 4;}
+		if (mongol.x4 <= 320) { mongol.x4 = 320; tower.hp -= 1;} else if (mongol.dis4) { mongol.x4 -= 1;}
+		if (mongol.x5 <= 320) { mongol.x5 = 320; tower.hp -= 1;} else if (mongol.dis5) { mongol.x5 -= 2;}
+		
+		if (tower.hp <= 0) { tower.run = false; tower.end='you were slaughtered by mongols';}
+		if (tower.count >= 2000) { tower.run = false; tower.end='you defended against the mongols long enough for reinforcements to arrive';}
+	}
+	else {
+		clearInterval(chinaInt);
+		document.getElementById('content').innerHTML += '<p style="position:absolute;top:50px;left:490px;width:300px;height:100px;font-size:20px;font-family: Arial;z-index:9999;">'+tower.end+'</p>';
+	}
+}
+
+function mongolClick(num){
+	"use strict";
+	switch (num) {
+		case 1:
+			mongol.hp1 -= 1;
+			if (mongol.hp1 <= 0) { mongol.hp1 = 3; mongol.dis1 = false; mongol.temp1 = tower.count;mongol.x1 = 1100;mongol.y1 = Math.floor(Math.random() * 550) + 100;}
+			break;
+		case 2:
+			mongol.hp2 -= 1;
+			if (mongol.hp2 <= 0) { mongol.hp2 = 3; mongol.dis2 = false; mongol.temp2 = tower.count;mongol.x2 = 1100;mongol.y2 = Math.floor(Math.random() * 550) + 100;}
+			break;
+		case 3:
+			mongol.hp3 -= 1;
+			if (mongol.hp3 <= 0) { mongol.hp3 = 3; mongol.dis3 = false; mongol.temp3 = tower.count;mongol.x3 = 1100;mongol.y3 = Math.floor(Math.random() * 550) + 100;}
+			break;
+		case 4:
+			mongol.hp4 -= 1;
+			if (mongol.hp4 <= 0) { mongol.hp4 = 3; mongol.dis4 = false; mongol.temp4 = tower.count;mongol.x4 = 1100;mongol.y4 = Math.floor(Math.random() * 550) + 100;}
+			break;
+		case 5:
+			mongol.hp5 -= 1;
+			if (mongol.hp5 <= 0) { mongol.hp5 = 3; mongol.dis5 = false; mongol.temp5 = tower.count;mongol.x5 = 1100;mongol.y5 = Math.floor(Math.random() * 550) + 100;}
+			break;
+	}
+}
+
+
+
+
+
+
 //middle ages
 var mousedown;
 function middle() {
