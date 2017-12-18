@@ -144,7 +144,9 @@ function moveAnimate(x2,y2,elem,intID,ticks) {
 
 //chinas
 function china() {
-
+	"use strict";
+	document.body.style.backgroundImage = "url('../_images/greatwall.jpg')";
+	document.getElementById("content").innerHTML = '<div id="towerImage" style="position:absolute;top:300px;left:50px"><img id="tower" src="../_images/tower.png" /><progress id="towerBar" value="100" max="100"></progress></div>';
 }
 //middle ages
 var mousedown;
