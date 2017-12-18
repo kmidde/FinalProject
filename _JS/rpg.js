@@ -232,7 +232,7 @@ function chinasFrame() {
 		} else {document.getElementById("mongol5").style.display = 'inherit';}
 		
 		if (mongol.x1 <= 320) { mongol.x1 = 320; tower.hp -= 1;} else if (mongol.dis1) { mongol.x1 -= 3;}
-		tif (mongol.x2 <= 320) { mongol.x2 = 320; tower.hp -= 1;} else if (mongol.dis2) { mongol.x2 -= 2;}
+		if (mongol.x2 <= 320) { mongol.x2 = 320; tower.hp -= 1;} else if (mongol.dis2) { mongol.x2 -= 2;}
 		if (mongol.x3 <= 320) { mongol.x3 = 320; tower.hp -= 1;} else if (mongol.dis3) { mongol.x3 -= 4;}
 		if (mongol.x4 <= 320) { mongol.x4 = 320; tower.hp -= 1;} else if (mongol.dis4) { mongol.x4 -= 1;}
 		if (mongol.x5 <= 320) { mongol.x5 = 320; tower.hp -= 1;} else if (mongol.dis5) { mongol.x5 -= 2;}
